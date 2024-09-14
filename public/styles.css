@@ -1,0 +1,210 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+}
+
+/* Header Styles */
+header {
+    background-color: #2c3e50;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: fixed; /* Fixes the navigation bar at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures the navigation bar is above the content */
+    height: 70px; /* Specify the height of the header */
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    width: 98%;
+    justify-content: space-between; /* Ensures spacing between elements */
+}
+
+.navbar img {
+    height: 50px;
+    margin-right: 20px;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Adds spacing between buttons */
+}
+
+.nav-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #c0392b;
+}
+
+/* Styles for the Main Content */
+main {
+    margin-top: 80px; /* Adjust this margin to avoid overlapping with the header */
+    padding: 150px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Styles for the Form */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; /* Makes the form take up the full width */
+    max-width: 100%; /* Removes the maximum width restriction */
+    padding: 0 10%; /* Adds some padding to avoid touching the screen edges */
+    min-height: 100vh; /* Ensures the main content takes up at least the full viewport height */
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+button[type="submit"] {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-buttons {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .navbar img {
+        margin-bottom: 10px;
+    }
+
+    form {
+        padding: 0 5%; /* Adjusts padding for smaller screens */
+    }
+}
+
+/* CSS civiles .html */
+
+/* New Grid Layout for Civiles */
+#civiles-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 columns */
+    gap: 20px; /* Space between the cards */
+    padding: 20px;
+    margin-top: 100px; /* Margin to ensure it stays below the navigation bar */
+}
+
+.civil-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    max-width: 200px;
+}
+
+/* Add extra margin to the first .civil-card to avoid overlapping */
+.civil-card:first-child {
+    margin-top: 0; /* Already accounted for by the container */
+}
+
+.civil-photo {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.civil-name {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.civil-dni {
+    color: #888;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 8px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

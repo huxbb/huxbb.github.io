@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOJ | Registro Civil LARP</title>
+    <link rel="stylesheet" href="../styles.css" type="text/css"/>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="../login/images/doj.png" alt="doj.png"/>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="window.location.href='./civiles.html'"> Civiles </button>
+                <button class="nav-button" onclick="window.location.href='./vehiculos.html'"> Vehiculos </button>
+                <button class="nav-button" onclick="window.location.href='./codigop.html'"> Codigo penal </button>
+                <button class="nav-button" onclick="window.location.href=''"> Procedimientos </button>
+                <button class="nav-button" onclick="window.location.href=''"> Derechos </button>
+                <button class="nav-button" onclick="window.location.href=''"> Busca y Captura </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="civiles-container"></div>
+
+    <!-- Modal para detalles del civil -->
+    <div id="civilModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-name"></h2>
+            <p><strong>DNI:</strong> <span id="modal-dni"></span></p>
+            <p><strong>Dirección:</strong> <span id="modal-direccion"></span></p>
+            <p><strong>Fecha de Nacimiento:</strong> <span id="modal-fecha"></span></p>
+            <h3>Infracciones</h3>
+            <ul id="modal-infracciones"></ul>
+
+            <!-- Botón para añadir infracción -->
+            <button id="add-infraccion-btn" style="display:none;">Añadir Infracción</button>
+
+            <!-- Formulario de infracción -->
+            <div id="add-infraccion-form" style="display:none;">
+                <h3>Registrar Infracción</h3>
+                <form id="infraccion-form">
+                    <label for="dni">DNI del Civil:</label>
+                    <input type="text" id="dni" required><br><br>
+                    <label for="articulo">Art.:</label>
+                    <input type="text" id="articulo" required><br><br>
+                    <label for="descripcion">Descripción:</label>
+                    <input type="text" id="descripcion" required><br><br>
+                    <label for="sancion">Sanción:</label>
+                    <input type="text" id="sancion" required><br><br>
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" required><br><br>
+                    <label for="agente">Agente:</label>
+                    <input type="text" id="agente" required><br><br>
+                    <button type="submit">Registrar Infracción</button>
+                </form>
+            </div>
+
+            <!-- Mensaje de infracción registrada -->
+            <p id="success-message" style="color: green; display: none;">Infracción registrada con éxito</p>
+            <!-- Mensaje de error -->
+            <p id="error-message" style="color: red; display: none;">Error al registrar la infracción. DNI no encontrado.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let selectedCivilDNI = ''; // Variable para almacenar el DNI del civil seleccionado
+
+            // Cargar y ordenar civiles
+            fetch('http://192.168.1.197:3000/agentes/regciviles.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Ordenar civiles por nombre
+                    data.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+                    const container = document.getElementById('civiles-container');
+                    
+                    data.forEach(civil => {
+                        // Crear tarjeta para cada civil
+                        const card = document.createElement('div');
+                        card.className = 'civil-card';
+                        card.innerHTML = `
+                            <img src="${civil.foto}" alt="Foto de ${civil.nombre}" class="civil-photo">
+                            <div class="civil-name">${civil.nombre}</div>
+                            <div class="civil-dni">DNI: ${civil.dni}</div>
+                        `;
+                        
+                        // Agregar evento para abrir el modal con más detalles
+                        card.addEventListener('click', () => {
+                            selectedCivilDNI = civil.dni; // Establecer el DNI del civil seleccionado
+                            document.getElementById('modal-name').textContent = civil.nombre;
+                            document.getElementById('modal-dni').textContent = civil.dni;
+                            document.getElementById('modal-direccion').textContent = civil.direccion;
+                            document.getElementById('modal-fecha').textContent = civil.fechaNacimiento;
+
+                            // Mostrar infracciones
+                            const infraccionesList = document.getElementById('modal-infracciones');
+                            infraccionesList.innerHTML = '';
+                            civil.infracciones.forEach(infraccion => {
+                                const li = document.createElement('li');
+                                li.textContent = `${infraccion.articulo}: ${infraccion.descripcion} (Sanción: ${infraccion.sancion}, Fecha: ${infraccion.fecha}, Agente: ${infraccion.agente})`;
+                                infraccionesList.appendChild(li);
+                            });
+
+                            // Mostrar el modal y el botón de añadir infracción
+                            document.getElementById('civilModal').style.display = 'block';
+                            document.getElementById('add-infraccion-btn').style.display = 'block';
+                            document.getElementById('success-message').style.display = 'none'; // Ocultar el mensaje si estaba visible
+                            document.getElementById('error-message').style.display = 'none'; // Ocultar el mensaje de error si estaba visible
+
+                            // Manejo de añadir infracción
+                            const addInfraccionBtn = document.getElementById('add-infraccion-btn');
+                            const addInfraccionForm = document.getElementById('add-infraccion-form');
+
+                            addInfraccionBtn.onclick = function() {
+                                addInfraccionForm.style.display = 'block'; // Mostrar formulario
+                                addInfraccionBtn.style.display = 'none'; // Ocultar botón
+                            };
+
+                            document.getElementById('infraccion-form').onsubmit = function(event) {
+                                event.preventDefault();
+                                
+                                // Crear objeto de nueva infracción
+                                const nuevaInfraccion = {
+                                    articulo: document.getElementById('articulo').value,
+                                    descripcion: document.getElementById('descripcion').value,
+                                    sancion: document.getElementById('sancion').value,
+                                    fecha: document.getElementById('fecha').value,
+                                    agente: document.getElementById('agente').value
+                                };
+
+                                const dniInput = document.getElementById('dni').value;
+
+                                // Enviar la nueva infracción al servidor
+                                fetch('http://192.168.1.197:3000/agentes/regciviles.json', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        dni: dniInput, // Enviar el DNI del civil especificado en el formulario
+                                        infraccion: nuevaInfraccion
+                                    }),
+                                })
+                                .then(response => response.text())
+                                .then(data => {
+                                    if (data === 'Infracción registrada con éxito') {
+                                        // Mostrar el mensaje de éxito
+                                        document.getElementById('success-message').style.display = 'block';
+                                        document.getElementById('error-message').style.display = 'none'; // Ocultar mensaje de error si estaba visible
+                                    } else {
+                                        // Mostrar el mensaje de error
+                                        document.getElementById('error-message').style.display = 'block';
+                                        document.getElementById('success-message').style.display = 'none'; // Ocultar mensaje de éxito si estaba visible
+                                    }
+
+                                    // Cerrar el formulario
+                                    addInfraccionForm.style.display = 'none';
+
+                                    // Limpiar campos del formulario
+                                    document.getElementById('infraccion-form').reset();
+
+                                    // Volver a mostrar el botón de "Añadir Infracción"
+                                    addInfraccionBtn.style.display = 'block';
+                                })
+                                .catch(error => {
+                                    console.error('Error al registrar la infracción:', error);
+                                });
+                            };
+                        });
+
+                        // Añadir la tarjeta al contenedor
+                        container.appendChild(card);
+                    });
+                });
+
+            // Cerrar el modal cuando se haga clic en el botón de cerrar
+            const modal = document.getElementById('civilModal');
+            const spanClose = document.getElementsByClassName('close')[0];
+            spanClose.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            // Cerrar el modal si se hace clic fuera de él
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

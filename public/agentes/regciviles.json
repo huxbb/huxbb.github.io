@@ -1,0 +1,130 @@
+[
+  {
+    "nombre": " Jhon Nolan",
+    "dni": "12345678A",
+    "foto": "./images/johnnolan.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Ares Bravo",
+    "dni": "12345678B",
+    "foto": "./images/aresbravo.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Alex Wilson",
+    "dni": "12345678C",
+    "foto": "./images/alexwilson.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "James Brown",
+    "dni": "12345678D",
+    "foto": "./images/jamesbrown.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Rayan",
+    "dni": "12345678E",
+    "foto": "./images/rayan.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Alicia",
+    "dni": "12345678F",
+    "foto": "./images/alicia.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Sergio Cortes",
+    "dni": "12345678G",
+    "foto": "./images/sergiocortes.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Jack Crawford",
+    "dni": "12345678H",
+    "foto": "./images/jackcrawford.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Owen Brown",
+    "dni": "12345678I",
+    "foto": "./images/owenbrown.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Mei Wilson",
+    "dni": "12345678J",
+    "foto": "./images/meiwilson.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "John Pequod",
+    "dni": "12345678K",
+    "foto": "./images/johnpequod.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Chim Real",
+    "dni": "12345678L",
+    "foto": "./images/chimreal.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Pol Curry ",
+    "dni": "12345678M",
+    "foto": "./images/chimreal.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Horatio Caine López",
+    "dni": "12345678N",
+    "foto": "./images/cainelopez.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "none",
+    "infracciones": []
+  },
+  {
+    "nombre": "Jake White Walter",
+    "dni": "12345678O",
+    "foto": "./images/whitewalter.png",
+    "direccion": "No Registrada",
+    "fechaNacimiento": "06/12/1989",
+    "infracciones": [
+      {
+        "articulo": "0",
+        "descripcion": "Ser muy bonito",
+        "sancion": "0",
+        "fecha": "1111-11-11",
+        "agente": "0"
+      }
+    ]
+  }
+]
